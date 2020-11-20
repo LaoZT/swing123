@@ -1,0 +1,63 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
+public class App {
+    // 创建 JPanel对象
+    private JPanel myPanel=new JPanel();
+    private JLabel labelMouse=new JLabel();
+    private JLabel labelBackground=new JLabel();
+    private JLabel countLabel=new JLabel();
+    int i=0;
+    public App() {
+
+
+        labelMouse.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                labelMouse.setBounds((int) (Math.random() * 10 % 10 * 50), (int) (Math.random() * 10 % 10 * 50), 100, 100);
+                i+=10;
+
+                countLabel.setText("分数:"+i);
+            }
+
+        });
+
+    }
+
+    public void appInit() {
+        myPanel.setLayout(null);
+        countLabel.setBounds(100,-80,200,220); // 分数
+        countLabel.setFont(new Font("宋体",Font.BOLD,40));
+        countLabel.setForeground(Color.red);
+        myPanel.add(countLabel);
+
+        java.net.URL imgUrl1 = App.class.getResource("mouse.gif");
+        labelMouse.setIcon(new ImageIcon(imgUrl1));
+        java.net.URL imgUrl2 = App.class.getResource("keng.jpg");
+        labelBackground.setIcon(new ImageIcon(imgUrl2));
+
+        labelMouse.setBounds(300,200,100,100);
+        labelBackground.setBounds(0,0,1024,720);
+
+
+        myPanel.add(labelMouse);
+        myPanel.add(labelBackground);
+
+        JFrame frame = new JFrame("？？？打地鼠");
+        frame.setContentPane(myPanel); // 1
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        frame.setBounds(100,100,1024,720);
+        frame.setVisible(true);
+    }
+
+
+    public static void main(String[] args) {
+        new App().appInit();
+    }
+
+
+}
