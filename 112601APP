@@ -1,0 +1,117 @@
+import javax.swing.*;
+import javax.swing.border.Border;
+import java.awt.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+// 找茬
+public class App extends JFrame{
+    JPanel myPanel=new JPanel();
+    JLabel label_background = new JLabel();
+    JLabel label_score = new JLabel(); // 成绩
+    JLabel label_targat1 = new JLabel(); // 目标
+    JLabel label_targat2 = new JLabel();
+    JLabel label_targat3 = new JLabel();
+    JLabel label_title = new JLabel();
+
+
+    int score=0;
+    int score1 = 0,score2=0,score3=0;
+    boolean targat1=false,targat2=false,targat3=false; // 用于标识目标是否已经找到
+
+    public App() {
+        label_targat1.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (targat1==false) {
+                    score1 = 100;
+                    score += score1;
+                    label_targat1.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+                    label_score.setText("得分：" + score);
+                    targat1 = true;
+                    endTargat(targat1, targat2, targat3);
+                }
+            }
+        });
+        label_targat2.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (targat2==false) {
+                    score2 = 200;
+                    score += score2;
+                    label_targat2.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+                    label_score.setText("得分：" + score);
+                    targat2 = true;
+                    endTargat(targat1, targat2, targat3);
+                }
+            }
+        });
+        label_targat3.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                if (targat3==false) {
+                    score3 = 300;
+                    score += score3;
+                    label_targat3.setBorder(BorderFactory.createLineBorder(Color.red, 2));
+                    label_score.setText("得分：" + score);
+                    targat3 = true;
+                    endTargat(targat1, targat2, targat3);
+                }
+            }
+        });
+    }
+    //显示窗体方法
+    void go(){
+        java.net.URL imgURL = App.class.getResource("img/background.jpg");
+        label_background.setIcon(new ImageIcon(imgURL));
+        label_background.setBounds(0,0,1000,800);
+
+        label_score.setText("得分:0");
+        label_score.setBounds(20,-150,400,400);
+        label_score.setFont(new Font("宋体",Font.BOLD,40));
+        label_score.setForeground(Color.red);
+
+        label_title.setText("原图展示");
+        label_title.setBounds(515,-150,400,400);
+        label_title.setFont(new Font("宋体",Font.BOLD,40));
+        label_title.setForeground(Color.orange);
+
+        label_targat1.setBounds(75,550,70,70);
+        label_targat2.setBounds(105,88,70,70);
+        label_targat3.setBounds(354,618,70,70);
+
+        myPanel.add(label_targat1);
+        myPanel.add(label_targat2);
+        myPanel.add(label_targat3);
+        myPanel.add(label_score);
+        myPanel.add(label_title);
+        myPanel.add(label_background);
+
+        JFrame frame = new JFrame("找茬游戏");
+        myPanel.setLayout(null);
+        frame.setContentPane(myPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setBounds(100,100,1000,800);
+        frame.setVisible(true);
+    }
+    public  void endTargat(boolean targat1,boolean targat2,boolean targat3){
+        if (targat1==true && targat2==true && targat3==true){
+            new MyJDialog(App.this).setVisible(true);
+        }
+    }
+    public static void main(String[] args) {
+        new App().go();
+    }
+}
+class MyJDialog extends JDialog{
+    public MyJDialog(App app){
+        super(app,"",true);
+        Container container = getContentPane();
+        container.add(new JLabel("恭喜你已经全部找到啦"));
+        setBounds(550,470,150,150);
+    }
+}
