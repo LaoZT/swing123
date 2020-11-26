@@ -15,7 +15,6 @@ public class App extends JFrame{
     JLabel label_targat3 = new JLabel();
     JLabel label_title = new JLabel();
 
-
     int score=0;
     int score1 = 0,score2=0,score3=0;
     boolean targat1=false,targat2=false,targat3=false; // 用于标识目标是否已经找到
